@@ -4,7 +4,7 @@ This is a minimal reproduction for an issue with `pnpx prisma db seed` not execu
 
 ## Issue Description
 
-After migrating from Prisma 5 to Prisma 6 and moving seed configuration from `package.json` to `prisma.config.ts`, the seed command no longer executes. When running `pnpx prisma db seed`, nothing happens - no output, no errors, no seed execution.
+After migrating from Prisma 5 to Prisma 6 and moving seed configuration from `package.json` to `prisma.config.ts`, the seed command no longer executes. When running `pnpx prisma db seed` (from root), nothing happens - no output, no errors, no seed execution.
 
 ## Setup Structure
 
@@ -31,6 +31,7 @@ prisma-seed-repro/
 ### Key Configuration Details
 
 **`packages/db/prisma.config.ts`:**
+
 ```typescript
 export default {
   schema: path.join("prisma", "schema"),
@@ -43,17 +44,20 @@ export default {
 **Note:** The seed command path is relative to the **repository root**, not the db package.
 
 **`packages/db/package.json`:**
+
 - No `"prisma"` section (config moved to `prisma.config.ts`)
 - Has `with-env` script wrapper for environment variables
 
 ## Reproduction Steps
 
 1. **Install dependencies:**
+
    ```bash
    pnpm install
    ```
 
 2. **Generate Prisma client:**
+
    ```bash
    cd packages/db
    pnpm db:generate
@@ -67,6 +71,7 @@ export default {
 ## Expected Behavior
 
 The seed command should:
+
 1. Detect the seed configuration from `prisma.config.ts`
 2. Execute: `pnpm exec tsx packages/seed/src/index.ts`
 3. Display output from the seed script:
@@ -80,6 +85,7 @@ The seed command should:
 ## Actual Behavior
 
 When running `pnpx prisma db seed`, nothing happens:
+
 - No output
 - No error messages
 - No execution of the seed script
