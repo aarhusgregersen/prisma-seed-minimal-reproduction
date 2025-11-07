@@ -1,0 +1,27 @@
+{
+  "name": "@repro/db",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./client": "./generated/client/index.js"
+  },
+  "scripts": {
+    "db:generate": "pnpm with-env prisma generate",
+    "db:migrate:dev": "pnpm with-env prisma migrate dev",
+    "db:migrate:deploy": "pnpm with-env prisma migrate deploy",
+    "with-env": "dotenv -e ../../.env --",
+    "postinstall": "pnpm db:generate",
+    "prebuild": "pnpm db:generate",
+    "predev": "pnpm db:generate"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "6.19.0",
+    "@prisma/client": "6.19.0"
+  },
+  "devDependencies": {
+    "@types/node": "24.10.0",
+    "dotenv-cli": "^7.4.2",
+    "prisma": "6.19.0"
+  }
+}

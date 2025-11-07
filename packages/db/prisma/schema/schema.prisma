@@ -1,0 +1,23 @@
+// Minimal Prisma schema for reproduction
+
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "library"
+  output     = "../../generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Minimal model for testing
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}

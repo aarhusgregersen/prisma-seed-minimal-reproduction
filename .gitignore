@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Environment
+.env.local
+.env*.local
+
+# Build outputs
+dist/
+build/
+
+# Prisma
+packages/db/generated/
+*.db
+*.db-journal
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
