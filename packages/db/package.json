@@ -10,9 +10,7 @@
     "db:generate": "pnpm with-env prisma generate",
     "db:migrate:dev": "pnpm with-env prisma migrate dev",
     "db:migrate:deploy": "pnpm with-env prisma migrate deploy",
-    "with-env": "dotenv -e ../../.env --",
-    "prebuild": "pnpm db:generate",
-    "predev": "pnpm db:generate"
+    "with-env": "dotenv -e ../../.env --"
   },
   "devDependencies": {
     "@types/node": "24.10.0",
