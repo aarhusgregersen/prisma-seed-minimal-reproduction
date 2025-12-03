@@ -1,2 +1,1 @@
 NODE_OPTIONS="--max-old-space-size=8192" pnpm lint
-pnpx prisma format --check

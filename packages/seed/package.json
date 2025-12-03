@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "seed": "tsx src/index.ts"
+    "seed": "pnpm exec src/index.ts"
   },
   "dependencies": {
     "@repro/db": "workspace:*"

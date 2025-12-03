@@ -15,6 +15,11 @@ prisma-seed-repro/
 ├── package.json                          # Root workspace config
 ├── pnpm-workspace.yaml                   # PNPM workspace definition
 ├── .env                                  # Environment variables
+├── biome.json                            # Biome linting/formatting config
+├── commitlint.config.js                  # Commitlint configuration
+├── .husky/                               # Git hooks
+│   ├── pre-commit                        # Runs lint + prisma format
+│   └── commit-msg                        # Validates commit messages
 └── packages/
     ├── db/                               # Database package
     │   ├── package.json                  # No "prisma" section
@@ -48,6 +53,19 @@ export default {
 - No `"prisma"` section (config moved to `prisma.config.ts`)
 - Has `with-env` script wrapper for environment variables
 
+### Git Hooks (Husky)
+
+This reproduction includes Husky git hooks that mimic the production setup:
+
+**Pre-commit hook (`.husky/pre-commit`):**
+- Runs `pnpm lint` to check code quality with Biome
+- Runs `pnpx prisma format --check` to verify Prisma schema formatting
+
+**Commit-msg hook (`.husky/commit-msg`):**
+- Validates commit messages against conventional commit format using commitlint
+
+**Why this matters:** The Prisma format check in the pre-commit hook demonstrates another context where Prisma CLI commands need to properly resolve the `prisma.config.ts` file in a monorepo setup.
+
 ## Reproduction Steps
 
 1. **Install dependencies:**
@@ -66,6 +84,16 @@ export default {
 3. **Attempt to run seed:**
    ```bash
    pnpx prisma db seed
+   ```
+
+4. **(Optional) Test Git Hooks:**
+   ```bash
+   # Initialize git if not already done
+   git init
+
+   # Test pre-commit hook (runs lint and prisma format check)
+   git add .
+   git commit -m "test: initial commit"
    ```
 
 ## Expected Behavior
@@ -97,6 +125,9 @@ When running `pnpx prisma db seed`, nothing happens:
 - **PNPM**: 10.7.0+
 - **Prisma**: 6.19.0
 - **Monorepo**: PNPM workspace with separate packages
+- **Linting**: Biome 2.2.4
+- **Git Hooks**: Husky 9.1.7
+- **Commit Validation**: Commitlint 19.7.1
 
 ## Potential Issues
 

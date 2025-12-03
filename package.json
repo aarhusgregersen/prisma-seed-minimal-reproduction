@@ -9,10 +9,18 @@
     "pnpm": ">=10.7.0"
   },
   "scripts": {
+    "prepare": "husky",
     "db:generate": "pnpm --filter @repro/db db:generate",
-    "db:seed": "pnpm --filter @repro/db with-env pnpx prisma db seed"
+    "db:seed": "pnpm --filter @repro/db with-env pnpx prisma db seed",
+    "lint": "biome check",
+    "lint:fix": "biome check --write"
   },
   "devDependencies": {
-    "@types/node": "24.10.0"
+    "@biomejs/biome": "2.2.4",
+    "@commitlint/cli": "^19.7.1",
+    "@commitlint/config-conventional": "^19.7.1",
+    "@repro/db": "workspace:*",
+    "@types/node": "24.10.0",
+    "husky": "^9.1.7"
   }
 }

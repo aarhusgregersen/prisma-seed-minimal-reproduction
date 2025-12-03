@@ -5,11 +5,15 @@
 
 async function seed() {
   console.log("🌱 Seed function is executing!");
-  console.log("If you see this message, the seed command is working correctly.");
-  console.log("If you DON'T see this message, the seed command is not being triggered.");
+  console.log(
+    "If you see this message, the seed command is working correctly.",
+  );
+  console.log(
+    "If you DON'T see this message, the seed command is not being triggered.",
+  );
 
   // Simulate some async work
-  await new Promise(resolve => setTimeout(resolve, 100));
+  await new Promise((resolve) => setTimeout(resolve, 100));
 
   console.log("✅ Seed completed successfully");
 }
